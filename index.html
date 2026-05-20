@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wall of Products — What indie makers are building, in public</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- OVERLAY (drawer) -->
+<div class="overlay" id="overlay"></div>
+
+<!-- PRODUCT DRAWER -->
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true">
+  <div class="drawer-accent" id="drawer-accent"></div>
+  <button class="drawer-close" id="drawer-close" aria-label="Close">✕</button>
+  <div class="drawer-inner" id="drawer-inner"></div>
+</aside>
+
+<!-- SUBMIT MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Add Your Product</div>
+        <div class="modal-sub">Takes 2 minutes. Visible to everyone immediately.</div>
+      </div>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Product Name *</label>
+          <input class="form-input" type="text" placeholder="e.g. Shipfast" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category *</label>
+          <select class="form-select">
+            <option value="">Select category</option>
+            <option>WEB APP</option>
+            <option>MOBILE</option>
+            <option>SAAS</option>
+            <option>TOOL</option>
+            <option>CHROME EXT</option>
+            <option>API</option>
+            <option>DESIGN SYSTEM</option>
+            <option>EXPERIMENT</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">One-line Tagline *</label>
+        <input class="form-input" type="text" placeholder="What does it do in one sentence?" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Name *</label>
+          <input class="form-input" type="text" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">X / Twitter Handle *</label>
+          <input class="form-input" type="text" placeholder="@yourhandle" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Country</label>
+          <input class="form-input" type="text" placeholder="e.g. India" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status *</label>
+          <select class="form-select">
+            <option value="">Select status</option>
+            <option>Building</option>
+            <option>Beta</option>
+            <option>Active</option>
+            <option>Shipped</option>
+            <option>Paused</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Website URL</label>
+        <input class="form-input" type="url" placeholder="https://" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">MRR (optional)</label>
+          <input class="form-input" type="text" placeholder="e.g. $240 or —" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Users (optional)</label>
+          <input class="form-input" type="text" placeholder="e.g. 420 or —" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Short Description</label>
+        <textarea class="form-textarea" placeholder="2–3 sentences about what you're building and why..."></textarea>
+      </div>
+
+      <!-- TIER PICKER -->
+      <div class="tier-section">
+        <div class="tier-section-header">
+          <div>
+            <div class="tier-section-title">★ Boost Your Listing</div>
+            <div class="tier-section-sub">Optional · monthly subscription · cancel anytime</div>
+          </div>
+        </div>
+
+        <div class="tier-cards">
+          <div class="tier-card is-selected" data-tier="free">
+            <input type="radio" name="tier" value="free" id="tier-free" checked />
+            <div class="tier-card-title">Free</div>
+            <div class="tier-card-price">$0/mo</div>
+            <div class="tier-card-desc">Standard 1-cell listing in the grid</div>
+          </div>
+          <div class="tier-card" data-tier="paid">
+            <input type="radio" name="tier" value="paid" id="tier-paid" />
+            <div class="tier-card-title">Boost ★</div>
+            <div class="tier-card-price">From $2.99/mo</div>
+            <div class="tier-card-desc">Bigger cells, color border, fill — stand out</div>
+          </div>
+        </div>
+
+        <div class="tier-options-block" id="tier-options-block">
+          <div class="tier-sublabel">Cell Size</div>
+          <div class="size-grid">
+            <div class="size-opt is-selected" data-cells="1">
+              <input type="radio" name="cells" value="1" id="cells-1" checked />
+              <div class="size-opt-vis viz-1"><span></span></div>
+              <div class="size-opt-name">Small</div>
+              <div class="size-opt-price">+$0</div>
+            </div>
+            <div class="size-opt" data-cells="2">
+              <input type="radio" name="cells" value="2" id="cells-2" />
+              <div class="size-opt-vis viz-2"><span></span><span></span></div>
+              <div class="size-opt-name">Banner</div>
+              <div class="size-opt-price">+$2.99</div>
+            </div>
+            <div class="size-opt" data-cells="4">
+              <input type="radio" name="cells" value="4" id="cells-4" />
+              <div class="size-opt-vis viz-4"><span></span><span></span><span></span><span></span></div>
+              <div class="size-opt-name">Hero</div>
+              <div class="size-opt-price">+$8.97</div>
+            </div>
+          </div>
+
+          <div class="tier-sublabel">Visual Add-ons</div>
+          <div class="toggle-row">
+            <div class="toggle-card" data-toggle="border">
+              <input type="checkbox" name="hasBorder" id="cb-border" />
+              <div class="toggle-info">
+                <div class="toggle-name">Border</div>
+                <div class="toggle-price">+$4.99/mo</div>
+              </div>
+              <input type="color" name="borderColor" value="#FF4D4D" id="border-color" class="color-swatch" />
+            </div>
+            <div class="toggle-card" data-toggle="fill">
+              <input type="checkbox" name="hasFill" id="cb-fill" />
+              <div class="toggle-info">
+                <div class="toggle-name">Fill</div>
+                <div class="toggle-price">+$7.99/mo</div>
+              </div>
+              <input type="color" name="fillColor" value="#FFE600" id="fill-color" class="color-swatch" />
+            </div>
+          </div>
+
+          <div class="preview-block">
+            <div class="tier-sublabel" style="margin:0 0 0.45rem">Preview · how your cell will look</div>
+            <div class="preview-canvas" id="preview-canvas"></div>
+          </div>
+        </div>
+
+        <div class="price-summary" id="price-summary">
+          <div class="price-row"><span>Base listing</span><span>$0.00</span></div>
+          <div class="price-row is-total"><span>Total</span><b>$0.00 / month</b></div>
+        </div>
+      </div>
+
+      <button class="form-submit" id="form-submit-btn">Submit Product →</button>
+      <p class="form-note">All metrics are self-reported and unverified. Products appear in random positions on the grid on every visit — Boost listings are always shown in the first two folds. Subscriptions billed monthly · cancel anytime.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-row1">
+      <div class="header-left">
+        <h1 class="site-title">Wall of Products</h1>
+        <p class="site-sub">What indie makers are building, in public</p>
+      </div>
+      <button class="submit-btn" id="open-modal">+ Add Your Product</button>
+    </div>
+    <div class="stats-row" id="stats-row">
+      <!-- populated by JS -->
+    </div>
+  </header>
+</div>
+
+<!-- FILTER BAR (full width sticky) -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <div class="view-tabs" id="view-tabs">
+      <!-- populated by JS -->
+    </div>
+    <div class="filter-row">
+      <div class="filter-pills" id="filter-pills">
+        <!-- populated by JS -->
+      </div>
+      <input class="search-input" id="search-input" type="text" placeholder="Search products…" />
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- VIEWS -->
+  <main>
+    <div class="view-container active" id="view-grid">
+      <div class="wall-grid" id="products-grid"></div>
+    </div>
+    <div class="view-container" id="view-list"></div>
+    <div class="view-container" id="view-leaderboard"></div>
+    <div class="view-container" id="view-feed"></div>
+    <div class="view-container" id="view-makers"></div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="footer-logo">Wall of Products</div>
+        <p class="footer-tagline">What indie makers are building,<br>in public.</p>
+        <div class="footer-socials">
+          <a class="footer-social-link" href="https://x.com/giripoonati" target="_blank" rel="noopener">𝕏 @giripoonati</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Browse</div>
+        <a class="footer-nav-link" href="#" data-goto="grid">Grid</a>
+        <a class="footer-nav-link" href="#" data-goto="list">List</a>
+        <a class="footer-nav-link" href="#" data-goto="leaderboard">Leaderboard</a>
+        <a class="footer-nav-link" href="#" data-goto="feed">Feed</a>
+        <a class="footer-nav-link" href="#" data-goto="makers">Makers</a>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">For Makers</div>
+        <a class="footer-nav-link" href="#" id="footer-open-modal">Submit Your Product</a>
+        <a class="footer-nav-link" href="#" id="footer-boost">Boost Your Listing</a>
+        <a class="footer-nav-link" href="#">How it Works</a>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">About</div>
+        <a class="footer-nav-link" href="#">About Wall of Products</a>
+        <a class="footer-nav-link" href="#">Privacy Policy</a>
+        <a class="footer-nav-link" href="#">Terms of Use</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-seo">
+    <div class="container">
+      <div class="footer-seo-label">Explore</div>
+      <div class="footer-seo-links">
+        <a href="#">Best Dev Tools 2025</a>
+        <a href="#">Top SaaS Products</a>
+        <a href="#">Best Chrome Extensions</a>
+        <a href="#">Top AI Products</a>
+        <a href="#">Best Design Tools</a>
+        <a href="#">Indie Productivity Apps</a>
+        <a href="#">Best Mobile Apps by Indie Makers</a>
+        <a href="#">Open Source Products</a>
+        <a href="#">Top Products by MRR</a>
+        <a href="#">Fastest Growing Indie Products</a>
+        <a href="#">New Indie Launches</a>
+        <a href="#">Products in Beta</a>
+        <a href="#">Indian Indie Makers</a>
+        <a href="#">US Indie Makers</a>
+        <a href="#">Solo Founder Products</a>
+        <a href="#">Best API Tools</a>
+        <a href="#">Indie SaaS Under $10</a>
+        <a href="#">No-Code Products</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© 2025 Wall of Products · All metrics self-reported and unverified · Building in public</span>
+      <span>Built by <a href="https://x.com/giripoonati" target="_blank" rel="noopener">@giripoonati</a></span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
