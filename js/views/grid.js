@@ -1,40 +1,8 @@
 import { makers, palette } from '../data.js';
 import { isPaid, shuffle, dotClass } from '../utils.js';
 
-/**
- * Arrange products for the grid view:
- * - Paid listings are scattered at random positions within the first two folds
- *   (guaranteed visible early, but not always anchored to the top-left corner)
- * - Free listings fill the remaining slots, also shuffled randomly
- */
 export function arrangeForGrid(filteredProducts) {
-  const paid = shuffle(filteredProducts.filter(isPaid));
-  const free = shuffle(filteredProducts.filter(p => !isPaid(p)));
-
-  if (paid.length === 0) return free;
-
-  // Pick random slots for paid items within a window covering ~two folds.
-  // Window size = paid items + up to 5 free items, so paid products are
-  // scattered among the first handful of cells rather than always top-left.
-  const windowSize = paid.length + Math.min(free.length, 5);
-  const paidSlots  = new Set();
-  while (paidSlots.size < paid.length) {
-    paidSlots.add(Math.floor(Math.random() * windowSize));
-  }
-  const sortedSlots = [...paidSlots].sort((a, b) => a - b);
-
-  // Build the window array, inserting paid items at chosen slots
-  const window = new Array(windowSize).fill(null);
-  sortedSlots.forEach((slot, i) => { window[slot] = paid[i]; });
-
-  // Fill the remaining window slots with free items
-  let freeIdx = 0;
-  for (let i = 0; i < window.length; i++) {
-    if (window[i] === null) window[i] = free[freeIdx++];
-  }
-
-  // Append any remaining free items after the window
-  return [...window, ...free.slice(freeIdx)];
+  return shuffle(filteredProducts);
 }
 
 /**

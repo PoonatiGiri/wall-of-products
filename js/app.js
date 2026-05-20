@@ -11,6 +11,7 @@ import { renderMakers }      from './views/makers.js';
 import { openDrawer, closeDrawer } from './drawer.js';
 import { initModal }         from './modal.js';
 import { parseMRR }          from './utils.js';
+import { tweets }            from './tweets.js';
 
 /* ── VIEW DEFINITIONS ────────────────────────────────── */
 const VIEWS = [
@@ -147,6 +148,24 @@ function init() {
       document.body.style.overflow = 'hidden';
     });
   });
+
+  // Render tweets sidebar
+  const tweetFeed = document.getElementById('tweet-feed');
+  if (tweetFeed) {
+    tweetFeed.innerHTML = tweets.map(t => `
+      <div class="tweet-card">
+        <div class="tweet-avatar" style="background:${t.color}">${t.initials}</div>
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">${t.name}</span>
+            <span class="tweet-time">${t.time}</span>
+          </div>
+          <div class="tweet-text">${t.text}</div>
+          <a class="tweet-handle" href="https://x.com/${t.handle.replace('@','')}" target="_blank" rel="noopener">${t.handle}</a>
+        </div>
+      </div>
+    `).join('');
+  }
 
   // Initial render
   renderCurrentView();
