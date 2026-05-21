@@ -9,6 +9,8 @@ import { renderLeaderboard } from './views/leaderboard.js';
 import { renderFeed }        from './views/feed.js';
 import { renderMakers }      from './views/makers.js';
 import { renderStats }        from './views/stats.js';
+import { renderLaunched }     from './views/launched.js';
+import { renderLoved }        from './views/loved.js';
 import { openDrawer, closeDrawer } from './drawer.js';
 import { initModal }         from './modal.js';
 import { parseMRR }          from './utils.js';
@@ -22,6 +24,8 @@ const VIEWS = [
   { id: 'feed',        label: 'Feed' },
   { id: 'makers',      label: 'Makers' },
   { id: 'stats',       label: 'Stats' },
+  { id: 'launched',    label: 'New 🚀' },
+  { id: 'loved',       label: 'Loved ♥' },
 ];
 
 /* ── RENDER CURRENT VIEW ─────────────────────────────── */
@@ -45,6 +49,12 @@ export function renderCurrentView() {
       break;
     case 'stats':
       renderStats(document.getElementById('view-stats'));
+      break;
+    case 'launched':
+      renderLaunched(filtered, document.getElementById('view-launched'), products, openDrawer);
+      break;
+    case 'loved':
+      renderLoved(filtered, document.getElementById('view-loved'), products, openDrawer);
       break;
   }
 }

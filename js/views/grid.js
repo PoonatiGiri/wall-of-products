@@ -1,5 +1,6 @@
 import { makers, palette } from '../data.js';
 import { isPaid, shuffle, dotClass } from '../utils.js';
+import { loveBtn, attachLoveBtn } from '../loves.js';
 
 export function arrangeForGrid(filteredProducts) {
   return shuffle(filteredProducts);
@@ -48,6 +49,7 @@ export function renderGrid(filteredProducts, container, allProducts, openDrawer)
         </div>
         <div class="cell-hero-foot">
           <span class="cell-hero-status s-${p.status}">${p.status}</span>
+          ${loveBtn(p.name)}
           <span class="cell-hero-cta">Visit →</span>
         </div>`;
     } else if (l.cells === 2) {
@@ -68,6 +70,7 @@ export function renderGrid(filteredProducts, container, allProducts, openDrawer)
         </div>
         <div class="cell-bottom cell-medium-bottom">
           <span class="cell-maker">${maker.handle} ${maker.flag}</span>
+          ${loveBtn(p.name)}
           <div style="display:flex;align-items:center;gap:0.35rem">
             <span class="status-dot ${dotClass[p.status] || 'dot-paused'}"></span>
             <span class="cell-tag">${p.category}</span>
@@ -83,6 +86,7 @@ export function renderGrid(filteredProducts, container, allProducts, openDrawer)
         </div>
         <div class="cell-bottom">
           <span class="cell-maker">${maker.handle} ${maker.flag}</span>
+          ${loveBtn(p.name)}
           <div style="display:flex;align-items:center;gap:0.35rem">
             <span class="status-dot ${dotClass[p.status] || 'dot-paused'}"></span>
             <span class="cell-tag">${p.category}</span>
@@ -90,7 +94,11 @@ export function renderGrid(filteredProducts, container, allProducts, openDrawer)
         </div>`;
     }
 
-    cell.addEventListener('click', () => openDrawer(idx));
+    cell.addEventListener('click', e => {
+      if (e.target.closest('[data-love]')) return;
+      openDrawer(idx);
+    });
+    attachLoveBtn(cell);
     container.appendChild(cell);
   });
 }
