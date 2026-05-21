@@ -8,6 +8,7 @@ import { renderList }        from './views/list.js';
 import { renderLeaderboard } from './views/leaderboard.js';
 import { renderFeed }        from './views/feed.js';
 import { renderMakers }      from './views/makers.js';
+import { renderStats }        from './views/stats.js';
 import { openDrawer, closeDrawer } from './drawer.js';
 import { initModal }         from './modal.js';
 import { parseMRR }          from './utils.js';
@@ -20,6 +21,7 @@ const VIEWS = [
   { id: 'leaderboard', label: 'Leaderboard' },
   { id: 'feed',        label: 'Feed' },
   { id: 'makers',      label: 'Makers' },
+  { id: 'stats',       label: 'Stats' },
 ];
 
 /* ── RENDER CURRENT VIEW ─────────────────────────────── */
@@ -40,6 +42,9 @@ export function renderCurrentView() {
       break;
     case 'makers':
       renderMakers(filtered, document.getElementById('view-makers'), products, openDrawer);
+      break;
+    case 'stats':
+      renderStats(document.getElementById('view-stats'));
       break;
   }
 }
@@ -154,15 +159,15 @@ function init() {
   if (tweetFeed) {
     tweetFeed.innerHTML = tweets.map(t => `
       <div class="tweet-card">
-        <div class="tweet-avatar" style="background:${t.color}">${t.initials}</div>
-        <div class="tweet-body">
+        <div class="tweet-card-top">
+          <div class="tweet-avatar" style="background:${t.color}">${t.initials}</div>
           <div class="tweet-meta">
-            <span class="tweet-name">${t.name}</span>
-            <span class="tweet-time">${t.time}</span>
+            <div class="tweet-name">${t.name}</div>
+            <div class="tweet-time">${t.time} ago</div>
           </div>
-          <div class="tweet-text">${t.text}</div>
-          <a class="tweet-handle" href="https://x.com/${t.handle.replace('@','')}" target="_blank" rel="noopener">${t.handle}</a>
         </div>
+        <div class="tweet-text">${t.text}</div>
+        <a class="tweet-handle" href="https://x.com/${t.handle.replace('@','')}" target="_blank" rel="noopener">${t.handle}</a>
       </div>
     `).join('');
   }

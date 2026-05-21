@@ -110,11 +110,17 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
 .search-input::placeholder { color: #ccc; }
 
 /* ── SIDEBAR LAYOUT ────────────────────────── */
+/*
+  Anchored to the right edge of the centred 1040px container:
+  left = 50vw + 520px (container half-width) + 1rem gap
+  right = 0.5rem from viewport edge (fluid width, no overlap ever)
+  Only shown when there is at least ~140px of gutter space.
+*/
 .tweet-sidebar {
-  width: 260px;
   position: fixed;
-  right: 1.5rem;
-  top: 8rem;
+  left: calc(50% + 520px + 1rem);
+  right: 0.5rem;
+  top: 7.5rem;
   max-height: calc(100vh - 9rem);
   overflow-y: auto;
   border: 1.5px solid var(--ink);
@@ -126,7 +132,7 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 0.75rem;
+  padding: 0.55rem 0.65rem;
   border-bottom: 1.5px solid var(--ink);
   position: sticky;
   top: 0;
@@ -136,9 +142,9 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
 .tweet-sidebar-live {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.52rem;
-  letter-spacing: 0.1em;
+  gap: 0.4rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
   font-weight: 500;
 }
 .tweet-live-dot {
@@ -146,72 +152,74 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
   border-radius: 50%;
   background: #22c55e;
   box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+  flex-shrink: 0;
 }
 .tweet-sidebar-all {
-  font-size: 0.48rem;
-  letter-spacing: 0.08em;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
   color: var(--ink);
   text-decoration: none;
   opacity: 0.45;
   transition: opacity 0.13s;
+  white-space: nowrap;
 }
 .tweet-sidebar-all:hover { opacity: 1; }
 .tweet-card {
-  display: flex;
-  gap: 0.6rem;
-  padding: 0.7rem 0.75rem;
+  padding: 0.65rem 0.65rem;
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.1s;
 }
 .tweet-card:last-child { border-bottom: none; }
 .tweet-card:hover { background: #fafafa; }
+.tweet-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
 .tweet-avatar {
-  width: 28px; height: 28px;
+  width: 24px; height: 24px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.4rem; font-weight: 600;
+  font-size: 0.48rem; font-weight: 600;
   color: #fff; flex-shrink: 0;
   font-family: 'DM Mono', monospace;
   letter-spacing: 0;
 }
-.tweet-body { flex: 1; min-width: 0; }
 .tweet-meta {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.3rem;
-  margin-bottom: 0.2rem;
+  flex: 1; min-width: 0;
 }
 .tweet-name {
-  font-size: 0.5rem;
+  font-size: 0.58rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.2;
 }
 .tweet-time {
-  font-size: 0.44rem;
+  font-size: 0.52rem;
   color: #aaa;
-  letter-spacing: 0.04em;
-  flex-shrink: 0;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
 }
 .tweet-text {
-  font-size: 0.49rem;
-  line-height: 1.65;
+  font-size: 0.6rem;
+  line-height: 1.6;
   color: #333;
-  margin-bottom: 0.28rem;
+  margin-bottom: 0.3rem;
   letter-spacing: 0.01em;
 }
 .tweet-handle {
-  font-size: 0.42rem;
+  font-size: 0.54rem;
   color: #bbb;
   text-decoration: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   transition: color 0.13s;
 }
 .tweet-handle:hover { color: var(--ink); }
-@media (max-width: 1380px) { .tweet-sidebar { display: none; } }
+@media (max-width: 1340px) { .tweet-sidebar { display: none; } }
 
 /* ── PRODUCT GRID ──────────────────────────── */
 .wall-grid {
@@ -253,13 +261,13 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
 .cell-top { display: flex; flex-direction: column; gap: 0.3rem; }
 .cell-name {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
   line-height: 1.05; letter-spacing: 0.02em; text-transform: uppercase;
   word-break: break-word;
 }
 .cell-tagline {
-  font-size: 0.46rem; line-height: 1.5;
-  color: #777; letter-spacing: 0.04em;
+  font-size: 0.58rem; line-height: 1.45;
+  color: #777; letter-spacing: 0.03em;
   display: -webkit-box; -webkit-line-clamp: 2;
   -webkit-box-orient: vertical; overflow: hidden;
   transition: color 0.14s;
@@ -271,12 +279,12 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
   justify-content: space-between; gap: 0.3rem;
 }
 .cell-maker {
-  font-size: 0.44rem; letter-spacing: 0.08em;
+  font-size: 0.56rem; letter-spacing: 0.06em;
   color: #bbb; transition: color 0.14s; line-height: 1;
 }
 .cell:hover .cell-maker { color: rgba(0,0,0,0.45); }
 .cell-tag {
-  font-size: 0.44rem; font-weight: 500; letter-spacing: 0.1em;
+  font-size: 0.54rem; font-weight: 500; letter-spacing: 0.08em;
   text-transform: uppercase; color: #bbb;
   transition: color 0.14s; flex-shrink: 0; line-height: 1;
 }
@@ -1110,4 +1118,176 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
 @media (max-width: 460px) {
   .wall-grid { grid-template-columns: repeat(2,1fr); }
   .list-view td.list-maker, .list-view th.list-maker-h { display: none; }
+}
+
+/* ── STATS VIEW ─────────────────────────── */
+.stats-view { padding: 2rem 0 4rem; }
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1.5px solid var(--ink);
+  margin-bottom: 1.5rem;
+}
+.stats-big-card {
+  padding: 1.2rem 1rem;
+  border-right: 1.5px solid var(--ink);
+  text-align: center;
+}
+.stats-big-card:last-child { border-right: none; }
+.stats-big-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem; line-height: 1; letter-spacing: 0.02em;
+  margin-bottom: 0.3rem;
+}
+.stats-big-lbl {
+  font-size: 0.58rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #999;
+}
+
+.stats-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.stats-panel {
+  border: 1.5px solid var(--ink);
+  padding: 1.2rem 1.1rem;
+}
+.stats-panel-full { grid-column: 1 / -1; }
+.stats-panel-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem; letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 0.5rem;
+}
+
+.stats-list { display: flex; flex-direction: column; gap: 0.65rem; }
+.stats-list-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.6rem;
+}
+.stats-flag { font-size: 1rem; line-height: 1; }
+.stats-label {
+  font-size: 0.6rem; letter-spacing: 0.06em;
+  text-transform: uppercase; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.stats-label-wide { grid-column: span 1; }
+.stats-count {
+  font-size: 0.6rem; letter-spacing: 0.06em;
+  color: #777; white-space: nowrap;
+  font-weight: 500;
+}
+.stat-bar-track {
+  height: 4px; background: #eee;
+  border-radius: 2px; min-width: 60px;
+}
+.stat-bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+
+/* status breakdown */
+.stats-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.stats-status-card {
+  border: 1.5px solid #eee;
+  padding: 0.8rem 0.7rem;
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 0.3rem;
+}
+.stats-status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.stats-status-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem; line-height: 1;
+}
+.stats-status-lbl {
+  font-size: 0.55rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #777;
+}
+
+/* leaderboard */
+.stats-leaderboard { display: flex; flex-direction: column; gap: 0; }
+.stats-lb-row {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr auto;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.stats-lb-row:last-child { border-bottom: none; }
+.stats-lb-rank {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem; color: #ccc; text-align: right;
+}
+.stats-lb-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem; letter-spacing: 0.03em;
+  line-height: 1.1;
+}
+.stats-lb-maker {
+  font-size: 0.55rem; letter-spacing: 0.06em; color: #999;
+}
+.stats-lb-mrr {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem; letter-spacing: 0.02em; color: #c08703;
+  white-space: nowrap;
+}
+
+/* makers grid */
+.stats-makers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.stats-maker-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 0.9rem;
+  border: 1.5px solid #eee;
+}
+.stats-maker-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.58rem; font-weight: 600;
+  color: #fff; flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+}
+.stats-maker-info { flex: 1; min-width: 0; }
+.stats-maker-name {
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.03em; margin-bottom: 0.2rem;
+}
+.stats-maker-handle {
+  font-size: 0.54rem; letter-spacing: 0.04em;
+  color: #999; margin-bottom: 0.45rem;
+}
+.stats-maker-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; line-height: 1;
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 0.1rem; flex-shrink: 0;
+}
+.stats-maker-count span {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.48rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #bbb;
+}
+
+@media (max-width: 768px) {
+  .stats-summary { grid-template-columns: repeat(3,1fr); }
+  .stats-cols { grid-template-columns: 1fr; }
+  .stats-makers-grid { grid-template-columns: 1fr; }
 }
