@@ -110,17 +110,11 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
 .search-input::placeholder { color: #ccc; }
 
 /* ── SIDEBAR LAYOUT ────────────────────────── */
-.content-with-sidebar {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-}
-.content-with-sidebar main { flex: 1; min-width: 0; }
 .tweet-sidebar {
-  width: 290px;
-  flex-shrink: 0;
-  position: sticky;
-  top: 7.5rem;
+  width: 260px;
+  position: fixed;
+  right: 1.5rem;
+  top: 8rem;
   max-height: calc(100vh - 9rem);
   overflow-y: auto;
   border: 1.5px solid var(--ink);
@@ -217,7 +211,7 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Mono', monospa
   transition: color 0.13s;
 }
 .tweet-handle:hover { color: var(--ink); }
-@media (max-width: 1100px) { .tweet-sidebar { display: none; } }
+@media (max-width: 1380px) { .tweet-sidebar { display: none; } }
 
 /* ── PRODUCT GRID ──────────────────────────── */
 .wall-grid {

@@ -219,30 +219,27 @@
 </div>
 
 <div class="container">
-  <div class="content-with-sidebar">
-    <!-- VIEWS -->
-    <main>
-      <div class="view-container active" id="view-grid">
-        <div class="wall-grid" id="products-grid"></div>
-      </div>
-      <div class="view-container" id="view-list"></div>
-      <div class="view-container" id="view-leaderboard"></div>
-      <div class="view-container" id="view-feed"></div>
-      <div class="view-container" id="view-makers"></div>
-    </main>
-
-    <!-- TWEETS SIDEBAR -->
-    <aside class="tweet-sidebar" id="tweet-sidebar">
-      <div class="tweet-sidebar-header">
-        <span class="tweet-sidebar-live">
-          <span class="tweet-live-dot"></span>FROM THE WALL
-        </span>
-        <a class="tweet-sidebar-all" href="https://x.com/search?q=%23buildinpublic+%23indiehacker" target="_blank" rel="noopener">All →</a>
-      </div>
-      <div class="tweet-feed" id="tweet-feed"></div>
-    </aside>
-  </div>
+  <main>
+    <div class="view-container active" id="view-grid">
+      <div class="wall-grid" id="products-grid"></div>
+    </div>
+    <div class="view-container" id="view-list"></div>
+    <div class="view-container" id="view-leaderboard"></div>
+    <div class="view-container" id="view-feed"></div>
+    <div class="view-container" id="view-makers"></div>
+  </main>
 </div>
+
+<!-- TWEETS SIDEBAR — fixed to right of viewport, outside container -->
+<aside class="tweet-sidebar" id="tweet-sidebar">
+  <div class="tweet-sidebar-header">
+    <span class="tweet-sidebar-live">
+      <span class="tweet-live-dot"></span>FROM THE WALL
+    </span>
+    <a class="tweet-sidebar-all" href="https://x.com/search?q=%23buildinpublic+%23indiehacker" target="_blank" rel="noopener">All →</a>
+  </div>
+  <div class="tweet-feed" id="tweet-feed"></div>
+</aside>
 
 <footer class="site-footer">
   <div class="container">
